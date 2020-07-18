@@ -1,18 +1,21 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Recipes } from 'src/models/recipes';
 import { DataService } from '../data.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatSelect } from '@angular/material';
 import { UserService } from '../user.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
-
+export class HomeComponent implements OnInit, OnDestroy {
+  private unsubscribeGetRecipes$ = new Subject();
+  private unsubscribeAddFavRecipes$ = new Subject();
   @ViewChild('selectProducts', { static: true }) public select: MatSelect;
 
   title = 'desserts-book';
@@ -37,10 +40,18 @@ export class HomeComponent implements OnInit {
 
   public ngOnInit() {
 
-    return this.dataService.getRecipes().subscribe(data => {
+    return this.dataService.getRecipes()
+    .pipe(takeUntil(this.unsubscribeGetRecipes$)).subscribe(data => {
       this.allRecipes = data.recipes;
       this.recipes = this.allRecipes;
     });
+  }
+
+  public ngOnDestroy() {
+    this.unsubscribeGetRecipes$.next();
+    this.unsubscribeGetRecipes$.complete();
+    this.unsubscribeAddFavRecipes$.next();
+    this.unsubscribeAddFavRecipes$.complete();
   }
 
   public changeSelection(evt) {
@@ -84,7 +95,8 @@ export class HomeComponent implements OnInit {
   public addToFavourites(element) {
     if (!this.favourites.includes(element.title)) {
       this.favourites.push(element.title);
-      this.userService.addRecipes(this.favourites).subscribe(
+      this.userService.addFavouriteRecipes(this.favourites)
+      .pipe(takeUntil(this.unsubscribeAddFavRecipes$)).subscribe(
         res => {
           console.log('Success');
         },

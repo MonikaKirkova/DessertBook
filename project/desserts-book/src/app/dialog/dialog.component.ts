@@ -7,10 +7,13 @@ import { Recipes } from 'src/models/recipes';
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss']
 })
-export class DialogComponent {
+export class DialogComponent implements OnInit {
 
   public dessert: Recipes;
   constructor(private dialogRef: MatDialogRef<DialogComponent>, @Inject(MAT_DIALOG_DATA) data) {
     this.dessert = data;
+  }
+
+  public ngOnInit() {
   }
 }

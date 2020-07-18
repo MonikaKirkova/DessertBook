@@ -27,9 +27,9 @@ export class UserService {
     return this.http.get(environment.apiBaseUrl + '/userProfile');
   }
 
-  public addRecipes(recipeNames) {
+  public addFavouriteRecipes(recipeNames) {
     console.log(recipeNames);
-    return this.http.patch(environment.apiBaseUrl + '/addRecipe', recipeNames);
+    return this.http.patch(environment.apiBaseUrl + '/addFavouriteRecipe', recipeNames);
   }
 
   public setToken(token: string) {

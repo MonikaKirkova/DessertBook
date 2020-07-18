@@ -1,20 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../user.service';
-import { Subscriber } from 'rxjs';
+import { Subscriber, Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-personal-account',
   templateUrl: './personal-account.component.html',
   styleUrls: ['./personal-account.component.scss']
 })
-export class PersonalAccountComponent implements OnInit {
-
+export class PersonalAccountComponent implements OnInit, OnDestroy {
+  private unsubscribe$ = new Subject();
   public userDetails;
   constructor(private userService: UserService, private route: Router) { }
 
-  ngOnInit() {
-    this.userService.getUserProfile().subscribe(
+  public ngOnInit() {
+    this.userService.getUserProfile()
+    .pipe(takeUntil(this.unsubscribe$)).subscribe(
       res => {
         this.userDetails = res['user'];
       },
@@ -22,6 +24,11 @@ export class PersonalAccountComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  public ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   public onLogOut() {
