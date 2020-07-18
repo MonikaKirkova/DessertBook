@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService} from '../../user.service';
+import { UserService } from '../../user.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   public errorMes: string;
-  
-  constructor(private userService: UserService, private route: Router) { }
+
+  constructor(protected userService: UserService, private route: Router) { }
 
   ngOnInit() {
   }
@@ -21,10 +21,10 @@ export class LoginComponent implements OnInit {
       res => {
         this.userService.setToken(res['token']);
         this.route.navigateByUrl('personalAccount');
-    },
-    err => {
-      this.errorMes = err.error.message;
-    }
+      },
+      err => {
+        this.errorMes = err.error.message;
+      }
     );
   }
 

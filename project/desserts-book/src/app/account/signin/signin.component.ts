@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class SigninComponent implements OnInit {
   public errorMes: string;
 
-  constructor(private userService: UserService, private route: Router) { }
+  constructor(protected userService: UserService, private route: Router) { }
 
   ngOnInit() {
   }

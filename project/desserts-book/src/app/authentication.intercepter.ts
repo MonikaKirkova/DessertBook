@@ -10,7 +10,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
     constructor(private userService: UserService, private router: Router) {}
 
-    intercept(req: HttpRequest<any>, next: HttpHandler) {
+    public intercept(req: HttpRequest<any>, next: HttpHandler) {
 
         if (req.headers.get('noauth')) {
             return next.handle(req.clone());

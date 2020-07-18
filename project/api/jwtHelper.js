@@ -8,6 +8,7 @@ module.exports.verifyJwtToken = (req, res, next) => {
 
     if (!token)
         return res.status(403).send({ auth: false, message: 'No token provided.' });
+        
     else {
         jwt.verify(token, jwtSecret,
             (err, decoded) => {
