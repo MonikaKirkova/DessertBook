@@ -21,7 +21,7 @@ export class SigninComponent implements OnInit {
     this.userService.postUser(form.value).subscribe(
       res => {
       this.resetForm(form);
-      this.route.navigateByUrl('account/login')
+      this.route.navigateByUrl('account/login');
     },
     err => {
       this.errorMes = 'Something went wrong';
@@ -35,7 +35,7 @@ export class SigninComponent implements OnInit {
       email: '',
       password: '',
       recipeNames: []
-    }
+    };
     form.resetForm();
     this.errorMes = '';
   }

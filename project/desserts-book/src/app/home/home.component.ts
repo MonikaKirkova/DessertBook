@@ -40,7 +40,6 @@ export class HomeComponent implements OnInit {
     return this.dataService.getRecipes().subscribe(data => {
       this.allRecipes = data.recipes;
       this.recipes = this.allRecipes;
-      console.log(this.recipes);
     });
   }
 
@@ -87,10 +86,10 @@ export class HomeComponent implements OnInit {
       this.favourites.push(element.title);
       this.userService.addRecipes(this.favourites).subscribe(
         res => {
-          console.log("ok");
+          console.log('Success');
         },
         err => {
-          console.log('Something went wrong');
+          console.log(err);
         }
       );
     }

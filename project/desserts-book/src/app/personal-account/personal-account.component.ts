@@ -17,7 +17,6 @@ export class PersonalAccountComponent implements OnInit {
     this.userService.getUserProfile().subscribe(
       res => {
         this.userDetails = res['user'];
-        console.log(this.userDetails);
       },
       err => {
         console.log(err);
