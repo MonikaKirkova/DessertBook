@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Recipes } from 'src/models/recipes';
-import { DataService } from '../data.service';
+import { DataService } from '../services/data.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatSelect } from '@angular/material';
-import { UserService } from '../user.service';
+import { UserService } from '../services/user.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 

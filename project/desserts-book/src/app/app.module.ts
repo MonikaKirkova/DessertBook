@@ -5,7 +5,7 @@ import { FormsModule} from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DataService } from './data.service';
+import { DataService } from './services/data.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {
@@ -18,7 +18,7 @@ import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { SigninComponent } from './account/signin/signin.component';
 import { LoginComponent } from './account/login/login.component';
-import { UserService } from './user.service';
+import { UserService } from './services/user.service';
 import { PersonalAccountComponent } from './personal-account/personal-account.component';
 import { AuthenticationInterceptor} from './authentication.intercepter';
 
