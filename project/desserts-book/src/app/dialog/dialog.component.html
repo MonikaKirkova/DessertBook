@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Recipe for {{dessert.title}}</h2>
+<mat-dialog-content>
+    <div style="display: flex;">
+        <div>
+            <h3>Ingredients:</h3>
+            <mat-list *ngFor="let product of dessert.extendedIngredients">
+                <mat-list-item>
+                    <mat-icon mat-list-icon style="font-size: 20px">cake</mat-icon>
+                    {{product.originalString}}
+                </mat-list-item>
+            </mat-list>
+        </div>
+        <div>
+            <h3>Instructions: </h3>
+            <mat-list *ngFor="let instruction of dessert.analyzedInstructions[0].steps">
+                <mat-list-item>
+                    {{instruction.number}}.
+                    {{instruction.step}}
+                </mat-list-item>
+            </mat-list>
+        </div>
+    </div>
+</mat-dialog-content>

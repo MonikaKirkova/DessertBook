@@ -1,0 +1,17 @@
+<div *ngIf="userDetails">
+    <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="Account Information">
+            <p>Name: {{userDetails.fullName}}</p>
+            <p>Email: {{userDetails.email}}</p>
+        </mat-tab>
+        <mat-tab label="Favourite Recipes">
+            <mat-list *ngFor="let recipe of userDetails.recipeNames">
+                <mat-list-item>
+                    <mat-icon mat-list-icon style="font-size: 20px">cake</mat-icon>
+                    {{recipe}}
+                </mat-list-item>
+            </mat-list>
+        </mat-tab>
+    </mat-tab-group>
+    <button mat-raised-button (click)="onLogOut()">Logout</button>
+</div>

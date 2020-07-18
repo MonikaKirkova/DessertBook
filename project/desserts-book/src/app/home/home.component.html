@@ -1,0 +1,68 @@
+<div>
+  <div>
+    <mat-form-field class="chipList">
+      <mat-chip-list #chipList>
+        <button mat-flat-button color='warn' (click)=selectProducts.open()>Select Products</button>
+        <mat-select #selectProducts multiple (selectionChange)="changeSelection($event)"
+          (openedChange)="filterRecipes($event)" style="display: none;">
+          <mat-option *ngFor="let product of products" [value]="product">
+            {{product}}
+          </mat-option>
+        </mat-select>
+        <mat-chip color="accent" *ngFor="let product of selectedProducts" selected>
+          {{product}}
+        </mat-chip>
+      </mat-chip-list>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-table [dataSource]="recipes">
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="readyInMinutes">
+        <mat-header-cell *matHeaderCellDef> Cooking time </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.readyInMinutes}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="servings">
+        <mat-header-cell *matHeaderCellDef> Number of servings </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.servings}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="glutenFree">
+        <mat-header-cell *matHeaderCellDef> Gluten Free </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.glutenFree}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="vegan">
+        <mat-header-cell *matHeaderCellDef> Vegan </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.vegan}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="image">
+        <mat-header-cell *matHeaderCellDef> Image </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <img src="{{element.image}}" alt="food" style="width: 100px; height: 100px;">
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="button">
+        <mat-header-cell *matHeaderCellDef> More information </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-raised-button color="primary" (click)="openDialog(element)">Get More Information</button>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="favourite">
+        <mat-header-cell *matHeaderCellDef>
+          Favourite Recipes          
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="addToFavourites(element)" aria-hidden="false">
+            <mat-icon>favourite</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+  </div>
+</div>
